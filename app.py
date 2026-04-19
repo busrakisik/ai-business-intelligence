@@ -69,12 +69,12 @@ Add sections:
 2. Risks / Issues
 3. Opportunities
 4. Recommendations
+            + "Always quantify insights if possible."
+            + "Be sharp and insightful, not generic."
 
 Make it sound like a real consultant report.
 """
-            + "Always quantify insights if possible."
-            + "Be sharp and insightful, not generic."
-            
+
             client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
             response = client.chat.completions.create(
