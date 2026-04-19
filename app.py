@@ -44,13 +44,37 @@ if uploaded_file is not None:
             summary = df.select_dtypes(include="number").describe().to_string()
 
             prompt = f"""
-            Analyze this dataset summary and give business insights:
+You are a senior business analyst working at a top consulting firm (like McKinsey or BCG).
 
-            {summary}
+Analyze the dataset summary below and generate professional business insights.
 
-            Give clear, short, business-focused insights.
-            """
+DATA SUMMARY:
+{summary}
 
+Your task:
+1. Identify key trends (growth, decline, anomalies)
+2. Highlight important relationships (e.g. revenue vs marketing spend)
+3. Detect potential problems or inefficiencies
+4. Suggest clear, actionable business recommendations
+
+Output format:
+- Use bullet points
+- Be concise and professional
+- Focus on business impact
+- Avoid technical jargon
+
+Add sections:
+
+1. Key Insights
+2. Risks / Issues
+3. Opportunities
+4. Recommendations
+
+Make it sound like a real consultant report.
+"""
+            + "Always quantify insights if possible."
+            + "Be sharp and insightful, not generic."
+            
             client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
             response = client.chat.completions.create(
