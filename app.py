@@ -31,7 +31,6 @@ if uploaded_file is not None:
         st.bar_chart(df[selected_col])
     else:
         st.warning("No numeric columns found in this file.")
-else:
 
     
 st.subheader("AI Insight")
