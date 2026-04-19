@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import openai
 
 st.set_page_config(page_title="AI Business Intelligence System", layout="wide")
 
@@ -31,4 +32,34 @@ if uploaded_file is not None:
     else:
         st.warning("No numeric columns found in this file.")
 else:
-    st.info("Upload a CSV file to begin.")
+
+    
+st.subheader("AI Insight")
+
+if uploaded_file is not None:
+    if st.button("Analyze with AI"):
+        try:
+            summary = df.select_dtypes(include="number").describe().to_string()
+
+            prompt = f"""
+            Analyze this dataset summary and give business insights:
+
+            {summary}
+
+            Give clear, short, business-focused insights.
+            """
+
+            client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": prompt}]
+            )
+
+            st.write(response.choices[0].message.content)
+
+        except Exception as e:
+            st.error(f"Hata: {e}")
+            
+            
+
