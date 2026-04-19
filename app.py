@@ -83,6 +83,7 @@ Make it sound like a real consultant report.
             )
 
             st.write(response.choices[0].message.content)
+            st.success("AI-powered insights generated successfully 🚀")
 
         except Exception as e:
             st.error(f"Hata: {e}")
