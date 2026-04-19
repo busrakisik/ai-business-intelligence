@@ -10,7 +10,10 @@ st.write("Upload a CSV file to explore your data.")
 uploaded_file = st.file_uploader("Upload CSV", type=["csv"])
 
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
+    try:
+        df = pd.read_csv(uploaded_file)
+    except:
+        df = pd.read_csv(uploaded_file, encoding="latin-1")
 
     st.subheader("Data Preview")
     st.dataframe(df.head())
